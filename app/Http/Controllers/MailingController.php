@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MailFormRequest;
+use App\Http\Requests\ShowRequest;
 use App\Mail\FunnyEmail;
 use App\Models\Mailing;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class MailingController extends Controller
                 'email'=>$request->get('email')
             ));
             $email->save();
-            Mail::to($email->email)->send(new FunnyEmail());
+            Mail::to($email->email)->send(new FunnyEmail($email));
             Newsletter::subscribe($email->email);
             $msg = 'Grazie '.$email->email . ' '.' per esseti iscritto alla nostra newsletter';
             return redirect()->back()->with('status',$msg);
@@ -37,5 +38,17 @@ class MailingController extends Controller
 
         }
 
+    }
+
+    public function show(int $id ,ShowRequest $request){
+        $email = Mailing::whereId($id)->firstOrFail();
+        return view('email.delete',compact('email'));
+    }
+
+    public function destroy(int $id, ShowRequest $request){
+        $email = Mailing::whereId($id)->firstOrFail();
+        NewsLetter::delete($email->email);
+        $email->delete();
+        return redirect('/')->with('status','Email '.$email->email.' has been deleted');
     }
 }

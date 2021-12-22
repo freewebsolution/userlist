@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/funny', function () {
-    return new \App\Mail\FunnyEmail();
-});
+//Route::get('/funny', function () {
+//    return new \App\Mail\FunnyEmail();
+//});
 Route::get('/',[\App\Http\Controllers\MailingController::class,'create']);
 Route::post('/',[\App\Http\Controllers\MailingController::class,'store']);
+Route::get('/{id?}',[\App\Http\Controllers\MailingController::class,'show']);
+Route::post('/delete/{id?}',[\App\Http\Controllers\MailingController::class,'destroy']);

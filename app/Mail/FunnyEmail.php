@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Mailing;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,9 +17,9 @@ class FunnyEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Mailing $email)
     {
-        //
+        $this->email = $email;
     }
 
     /**
@@ -30,6 +31,6 @@ class FunnyEmail extends Mailable
     {
         return $this->from('noreply@lucio.it')
             ->subject('Iscrizione newsLetter')
-            ->markdown('email.funny');
+            ->view('email.funny')->with(['email'=>$this->email]);
     }
 }
