@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Nette\Schema\ValidationException;
 use PHPUnit\Exception;
+use Spatie\Newsletter\NewsletterFacade as NewsLetter;
+
 
 class MailingController extends Controller
 {
@@ -23,6 +25,7 @@ class MailingController extends Controller
             ));
             $email->save();
             Mail::to($email->email)->send(new FunnyEmail());
+            Newsletter::subscribe($email->email);
             $msg = 'Grazie '.$email->email . ' '.' per esseti iscritto alla nostra newsletter';
             return redirect()->back()->with('status',$msg);
         }catch (ValidationException $e){
