@@ -6,6 +6,7 @@ use App\Http\Requests\MailFormRequest;
 use App\Http\Requests\ShowRequest;
 use App\Mail\FunnyEmail;
 use App\Models\Mailing;
+use App\services\MyNewsletterService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Nette\Schema\ValidationException;
@@ -15,6 +16,11 @@ use Spatie\Newsletter\NewsletterFacade as NewsLetter;
 
 class MailingController extends Controller
 {
+    private $newsLetterService;
+
+    public function __construct(MyNewsletterService $service){
+        $this->newsLetterService= $service;
+    }
     public function create(){
         return view('email.create');
     }
@@ -26,8 +32,8 @@ class MailingController extends Controller
             ));
             $email->save();
             Mail::to($email->email)->send(new FunnyEmail($email));
-            Newsletter::subscribe($email->email);
             $msg = 'Grazie '.$email->email . ' '.' per esseti iscritto alla nostra newsletter';
+            $this->newsLetterService->execute($email);
             return redirect()->back()->with('status',$msg);
         }catch (ValidationException $e){
             $msg = $e->getErrors();
@@ -47,7 +53,7 @@ class MailingController extends Controller
 
     public function destroy(int $id, ShowRequest $request){
         $email = Mailing::whereId($id)->firstOrFail();
-        NewsLetter::delete($email->email);
+        $this->newsLetterService->delete($email);
         $email->delete();
         return redirect('/')->with('status','Email '.$email->email.' has been deleted');
     }
