@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Config;
 
 class FunnyEmail extends Mailable
 {
@@ -29,8 +30,10 @@ class FunnyEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@lucio.it')
-            ->subject('Iscrizione newsLetter')
+        $from = Config::get('mailing.from');
+        $subject = Config::get('mailing.subject');
+        return $this->from($from)
+            ->subject($subject)
             ->view('email.funny')->with(['email'=>$this->email]);
     }
 }
