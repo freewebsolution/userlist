@@ -4,14 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MailFormRequest;
 use App\Http\Requests\ShowRequest;
-use App\Mail\FunnyEmail;
 use App\Models\Mailing;
 use App\services\MyNewsletterService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Nette\Schema\ValidationException;
 use PHPUnit\Exception;
-use Spatie\Newsletter\NewsletterFacade as NewsLetter;
 
 
 class MailingController extends Controller
@@ -31,7 +27,6 @@ class MailingController extends Controller
                 'email'=>$request->get('email')
             ));
             $email->save();
-            Mail::to($email->email)->send(new FunnyEmail($email));
             $msg = 'Grazie '.$email->email . ' '.' per esseti iscritto alla nostra newsletter';
             $this->newsLetterService->execute($email);
             return redirect()->back()->with('status',$msg);

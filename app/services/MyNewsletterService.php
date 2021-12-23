@@ -7,6 +7,9 @@ use Spatie\Newsletter\NewsletterFacade as NewsLetter;
 
 class MyNewsletterService
 {
+    public function __construct(MailSendService $service){
+        $this->mailsendService = $service;
+    }
     public function execute(Mailing $email):string{
         if(!$email->email){
             throw new \ErrorException('Email is empty');
@@ -16,6 +19,7 @@ class MyNewsletterService
         }
 
         NewsLetter::subscribe($email->email);
+        $this->mailsendService->send($email);
         return 'Email '.$email->email . ' successfull subscribed!';
     }
     public function delete(Mailing $email){
