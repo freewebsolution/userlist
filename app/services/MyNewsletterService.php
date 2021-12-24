@@ -10,17 +10,17 @@ class MyNewsletterService
     public function __construct(MailSendService $service){
         $this->mailsendService = $service;
     }
-    public function execute(Mailing $email):string{
-        if(!$email->email){
+    public function execute(MyNewsletterServiceDto $dto):string{
+        if(!$dto->mail->email){
             throw new \ErrorException('Email is empty');
         }
-        if(Newsletter::isSubscribed($email->email)){
-            throw new \ErrorException('The email '.$email->email.' is already subscribed!');
+        if(Newsletter::isSubscribed($dto->mail->email)){
+            throw new \ErrorException('The email '.$dto->mail->email.' is already subscribed!');
         }
 
-        NewsLetter::subscribe($email->email);
-        $this->mailsendService->send($email);
-        return 'Email '.$email->email . ' successfull subscribed!';
+        NewsLetter::subscribe($dto->mail->email);
+        $this->mailsendService->send($dto->mail);
+        return 'Email '.$dto->mail->email . ' successfull subscribed!';
     }
     public function delete(Mailing $email){
         NewsLetter::delete($email->email);

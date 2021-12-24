@@ -6,6 +6,7 @@ use App\Http\Requests\MailFormRequest;
 use App\Http\Requests\ShowRequest;
 use App\Models\Mailing;
 use App\services\MyNewsletterService;
+use App\services\MyNewsletterServiceDto;
 use Nette\Schema\ValidationException;
 use PHPUnit\Exception;
 
@@ -28,7 +29,8 @@ class MailingController extends Controller
             ));
             $email->save();
             $msg = 'Grazie '.$email->email . ' '.' per esseti iscritto alla nostra newsletter';
-            $this->newsLetterService->execute($email);
+            $dto = MyNewsletterServiceDto::create($email);
+            $this->newsLetterService->execute($dto);
             return redirect()->back()->with('status',$msg);
         }catch (ValidationException $e){
             $msg = $e->getErrors();
