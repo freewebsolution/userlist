@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Route::get('/funny', function () {
-//    return new \App\Mail\FunnyEmail();
+//    return new \App\Mail\SendEmail();
 //});
 Route::get('/',[\App\Http\Controllers\MailingController::class,'create']);
 Route::post('/',[\App\Http\Controllers\MailingController::class,'store']);

@@ -2,6 +2,7 @@
 
 namespace App\services;
 
+use App\Events\UserRegistered;
 use App\Models\Mailing;
 use Spatie\Newsletter\NewsletterFacade as NewsLetter;
 
@@ -19,7 +20,7 @@ class MyNewsletterService
         }
 
         NewsLetter::subscribe($dto->mail->email);
-        $this->mailsendService->send($dto->mail);
+        UserRegistered::dispatch($dto->mail);
         return 'Email '.$dto->mail->email . ' successfull subscribed!';
     }
     public function delete(Mailing $email){

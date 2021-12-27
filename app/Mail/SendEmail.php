@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Config;
 
-class FunnyEmail extends Mailable
+class SendEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
