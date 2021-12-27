@@ -9,5 +9,9 @@ class Categorie extends Model
 {
     public $table = 'nodi';
     protected $guarded =['nodi_ID'];
+
+    public function childs(){
+        return $this->hasMany(Categorie::class,'nodi_ID_padre','nodi_ID');
+    }
     use HasFactory;
 }

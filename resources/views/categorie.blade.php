@@ -6,9 +6,11 @@
             <div class="card-header">
                 <h5 class="float-left">Albero categorie</h5>
                 <div class="clearfix"></div>
-                @foreach($categories as $category)
-                    {{$category->nodi_descr}}
-                @endforeach
+                <ul class="list-group">
+                    @foreach($categories as $category)
+                        <li class="list-group-item"> {{$category->nodi_descr}}</li>
+                    @endforeach
+                </ul>
             </div>
         </div>
 @endsection
