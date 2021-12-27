@@ -8,7 +8,14 @@
                 <div class="clearfix"></div>
                 <ul class="list-group">
                     @foreach($categories as $category)
-                        <li class="list-group-item"> {{$category->nodi_descr}}</li>
+                        <li class="list-group-item">
+                            <b>{{$category->nodi_descr}}</b>({{$rami->counter($category->nodi_ID)}})
+                            <ul>
+                                @foreach($category->childs as $childCategory)
+                                    @include('child_categories',['child_category'=>$childCategory])
+                                @endforeach
+                            </ul>
+                        </li>
                     @endforeach
                 </ul>
             </div>
