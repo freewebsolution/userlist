@@ -1,4 +1,4 @@
-@extends('email.master')
+@extends('master')
 @section('title','Delete user from newsletter')
 @section('content')
 <div class="container mx-auto">

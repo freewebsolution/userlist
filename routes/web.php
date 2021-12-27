@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategorieController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/funny', function () {
 //    return new \App\Mail\SendEmail();
 //});
+Route::get('categorie',[CategorieController::class,'index']);
 Route::get('/',[\App\Http\Controllers\MailingController::class,'create']);
 Route::post('/',[\App\Http\Controllers\MailingController::class,'store']);
 Route::get('/{id?}',[\App\Http\Controllers\MailingController::class,'show']);
 Route::post('/delete/{id?}',[\App\Http\Controllers\MailingController::class,'destroy']);
+

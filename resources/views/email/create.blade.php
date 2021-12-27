@@ -1,4 +1,4 @@
-@extends('email.master')
+@extends('master')
 @section('title','Create a mailing List')
 @section('content')
     <div class="container col-md-8 col-md-offset-2">
