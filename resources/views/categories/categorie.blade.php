@@ -12,7 +12,7 @@
                             <b>{{$category->nodi_descr}}</b>({{$rami->counter($category->nodi_ID)}})
                             <ul>
                                 @foreach($category->childs as $childCategory)
-                                    @include('child_categories',['child_category'=>$childCategory])
+                                    @include('categories.child_categories',['child_category'=>$childCategory])
                                 @endforeach
                             </ul>
                         </li>

@@ -24,6 +24,6 @@ class CategorieController extends Controller
         }
         $rami = new ArticoliRami();
         $this->rami->counter($id);
-        return view('categorie', compact('categories','rami',['rami'=>$this->rami->counter($id)]));
+        return view('categories.categorie', compact('categories','rami',['rami'=>$this->rami->counter($id)]));
     }
 }

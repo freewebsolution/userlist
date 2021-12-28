@@ -2,7 +2,7 @@
 @if($child_category->childs)
     <ul>
         @foreach($child_category->childs as $childCategory)
-            @include('child_categories',['child_category'=>$childCategory])
+            @include('categories.child_categories',['child_category'=>$childCategory])
         @endforeach
     </ul>
 @endif

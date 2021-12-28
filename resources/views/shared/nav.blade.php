@@ -11,6 +11,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="categorie">Categorie</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="corrotte">Categorie Corrotte</a>
+            </li>
         </ul>
     </div>
 </nav>

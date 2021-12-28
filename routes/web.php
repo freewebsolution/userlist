@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ArticoliController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\MailingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,8 +20,9 @@ use Illuminate\Support\Facades\Route;
 //    return new \App\Mail\SendEmail();
 //});
 Route::get('categorie',[CategorieController::class,'index']);
-Route::get('/',[\App\Http\Controllers\MailingController::class,'create']);
-Route::post('/',[\App\Http\Controllers\MailingController::class,'store']);
-Route::get('/{id?}',[\App\Http\Controllers\MailingController::class,'show']);
-Route::post('/delete/{id?}',[\App\Http\Controllers\MailingController::class,'destroy']);
+Route::get('corrotte',[ArticoliController::class,'index']);
+Route::get('/',[MailingController::class,'create']);
+Route::post('/',[MailingController::class,'store']);
+Route::get('/{id?}',[MailingController::class,'show']);
+Route::post('/delete/{id?}',[MailingController::class,'destroy']);
 
